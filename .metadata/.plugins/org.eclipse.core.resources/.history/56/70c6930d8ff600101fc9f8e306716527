@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>책 대여</title>
+</head>
+<body>
+	<form th:action="@{}" method="GET">
+		<input type="text" name="bookname" placeholder="책 이름"/>
+		<input/>
+		<input/>
+		<input/>
+	</form>
+</body>
+</html>

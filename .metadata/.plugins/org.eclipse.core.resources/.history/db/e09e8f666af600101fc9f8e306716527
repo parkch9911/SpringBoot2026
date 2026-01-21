@@ -1,0 +1,9 @@
+package com.example.demo;
+
+import org.springframework.stereotype.Controller;
+
+//Greeting 클래스를 Controller 역할을 하게 지정해줘.
+@Controller
+public class Greeting {
+	
+}

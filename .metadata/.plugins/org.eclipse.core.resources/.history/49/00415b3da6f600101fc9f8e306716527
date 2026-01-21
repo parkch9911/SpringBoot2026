@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th = "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>수강 신청 완료</h2>
+	<p>학생명: <span th:text="${new_name}"></span></p>
+	<p>연락처: <span th:text="${new_name}"></span></p>
+	<p>수강과목: <span th:text="${new_name}"></span></p>
+	<p>수강기간: <span th:text="${new_name}"></span></p>
+	<p>수강료: <span th:text="${new_name}"></span></p>
+	<p>수강 신청이 완료되었습니다.</p>
+	<p>개강 안내 문자를 발송해드리겠습니다.</p>
+</body>
+</html>

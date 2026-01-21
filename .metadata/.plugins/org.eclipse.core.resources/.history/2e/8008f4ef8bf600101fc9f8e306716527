@@ -1,0 +1,8 @@
+package com.green;
+
+@org.springframework.stereotype.Controller
+
+@Controller
+public class Controller {
+
+}

@@ -1,0 +1,6 @@
+package com.green.controller;
+
+@Controller
+public class OrderController {
+
+}

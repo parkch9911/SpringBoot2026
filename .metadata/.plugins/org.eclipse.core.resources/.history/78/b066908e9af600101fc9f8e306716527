@@ -1,0 +1,42 @@
+package com.green.controller;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+public class BookController {
+	
+	@GetMapping("/book/rental")
+	public String BookRental() {
+		return "bookRental";
+	}
+	
+	@PostMapping("/book/rentalProc")
+	public ModelAndView BookRentalProc(
+			@RequestParam("bookname") ArrayList<String> bookname,
+			@RequestParam("author") ArrayList<String> author,
+			@RequestParam("isbn") ArrayList<String> isbn,
+			@RequestParam("username") ArrayList<String> username,
+			@RequestParam("rentdate") ArrayList<String> rentdate
+			) {
+		Date now = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("len",bookname.size());
+		mv.addObject("new_rentdate",sdf.format(now));
+		mv.addObject("new_bookname",bookname);
+		mv.addObject("new_author",author);
+		mv.addObject("new_isbn",isbn);
+		mv.addObject("new_username",username);
+		mv.setViewName("bookRentalProc");
+		return mv;
+	}
+}

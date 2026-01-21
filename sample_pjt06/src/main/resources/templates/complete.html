@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th = "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>예약이 완료되었습니다</h2>
+	<p>예약자명 : <span th:text="${new_name}"></span></p>
+	<p>연락처 : <span th:text="${new_phone}"></span></p>
+	<p>예약날짜 : <span th:text="${new_date}"></span></p>
+	<p>예약시간 : <span th:text="${new_time}"></span></p>
+	<p>인원수 : <span th:text="${new_quantity}"></span></p>
+	<p>예약 확인 문자가 발송되었습니다.</p>
+</body>
+</html>

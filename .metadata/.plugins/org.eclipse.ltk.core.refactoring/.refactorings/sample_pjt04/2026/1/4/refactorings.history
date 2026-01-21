@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;com.green.orderController&apos; to &apos;com.green.controller&apos;&#x0D;&#x0A;- Original project: &apos;sample_pjt04&apos;&#x0D;&#x0A;- Original element: &apos;sample_pjt04/src/main/java/com.green.orderController&apos;&#x0D;&#x0A;- Renamed element: &apos;sample_pjt04/src/main/java/com.green.controller&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;com.green.orderController&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src\/main\/java=/gradle_scope=/main=/=/gradle_used_by_scope=/main,test=/&lt;com.green.orderController" name="com.green.controller" qualified="false" references="true" stamp="1768981086780" textual="false" version="1.0"/>
+</session>

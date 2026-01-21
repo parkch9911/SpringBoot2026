@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>주문정보</title>
+</head>
+<body>
+	<div>
+		<h2>주문정보</h2>
+		<p>상품명 : <span th:text="${new_productName}"></span></p>
+		<p>가격 : <span th:text="${new_productPrice}">원</span></p>
+		<p>수량 : <span th:text="${new_quantity}">개</span></p>
+		<p>총액 : <span th:text="${total}">원</span></p>
+		<p>주문자 : <span th:text="${new_userName}">님</span></p>
+		<p>주문일자 : <span th:text="${new_time}"></span></p>
+
+	</div>
+</body>
+</html>

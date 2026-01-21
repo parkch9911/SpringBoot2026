@@ -1,0 +1,37 @@
+package com.green.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+public class MovieController {
+	
+	@GetMapping("/movie/reserve")
+	public String reservation() {
+		//html파일명
+		return "movieReserve";
+	}
+	
+	@PostMapping("/movie/reserveConfirm")
+	public String confirm(
+			@RequestParam("title") String title,
+			@RequestParam("date") String date,
+			@RequestParam("time") String time,
+			@RequestParam("quantity") int quantity,
+			@RequestParam("name") String name
+			) {
+		ModelAndView mv =new ModelAndView();
+		mv.addObject("new_title", title);
+		mv.addObject("new_date", title);
+		mv.addObject("new_time", title);
+		mv.addObject("new_quantity", title);
+		mv.addObject("new_name", title);
+		mv.addObject("new_total", 11000*quantity);
+		
+		
+		return "";	
+	}
+}

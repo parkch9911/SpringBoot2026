@@ -1,0 +1,18 @@
+package com.example.demo;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+//Greeting 클래스를 Controller 역할을 하게 지정해줘.
+@Controller //Controller 라는 Bean 객체가 생성되도록 하는 어노테이션
+public class Greeting {
+	
+	//메소드
+	@GetMapping("/") // http:localhost:8090/   => 홈페이지
+	public String greet() {
+		System.out.println("greet()");
+		return "home"; //home.html => 페이지 이름을 반환
+		//src/main/resources // application.properties 에 spring.thymeleaf.suffix=.html 코드
+		// => 반환하는 문자값의 후미에 .html 붙여서 반환 
+	}
+}

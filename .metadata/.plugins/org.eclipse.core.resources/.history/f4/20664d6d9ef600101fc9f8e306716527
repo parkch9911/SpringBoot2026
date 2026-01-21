@@ -1,0 +1,34 @@
+package com.green.controller;
+
+import java.text.SimpleDateFormat;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+public class OrderController {
+	
+	@GetMapping("/product/order")
+	public String Order() {
+		return "productOrder";
+	}
+	
+	@PostMapping("/product/orderResult")
+	public String Result(
+			@RequestParam("productName") String productName,
+			@RequestParam("productPrice") int productPrice,
+			@RequestParam("quantity") int quantity,
+			@RequestParam("userName") String userName
+			) {
+		ModelAndView mv = new ModelAndView();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss e요일");
+		
+		return "";
+	}
+	
+}
+
+	

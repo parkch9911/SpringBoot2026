@@ -1,0 +1,14 @@
+package com.green;
+
+import org.springframework.web.bind.annotation.GetMapping;
+
+public class Controller {
+
+	@GetMapping("/")
+	public String BookInfo() {
+		return "";
+		
+	}
+	
+	
+}

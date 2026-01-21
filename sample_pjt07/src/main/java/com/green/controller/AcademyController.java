@@ -1,0 +1,46 @@
+package com.green.controller;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+public class AcademyController {
+
+	
+	@GetMapping("/academy/enroll")
+	public String enroll() {
+		return "enroll";
+	}
+	
+	@PostMapping("/academy/enrollResult")
+	public ModelAndView result(
+			@RequestParam("name") String name,
+			@RequestParam("phone") String phone,
+			@RequestParam("subject") String subject,
+			@RequestParam("peroid") int period,
+			@RequestParam("pay") int pay
+			) {
+		ModelAndView mv = new ModelAndView();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		LocalDate today = LocalDate.now();
+		LocalDate next = today.plusDays(10);
+		
+		
+		mv.addObject("new_days", sdf.format(next));
+		mv.addObject("new_name", name);
+		mv.addObject("new_phone",phone);
+		mv.addObject("new_subject",subject);
+		mv.addObject("new_pay",100000*period);
+		mv.addObject("new_period", period);
+		mv.setViewName("result");
+		return mv;
+	}
+
+}

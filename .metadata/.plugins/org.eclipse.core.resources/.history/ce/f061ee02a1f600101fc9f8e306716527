@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>영화예매</title>
+</head>
+<body>
+
+</body>
+</html>

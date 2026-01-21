@@ -1,0 +1,6 @@
+package com.green;
+
+@Controller
+public class Controller {
+
+}
