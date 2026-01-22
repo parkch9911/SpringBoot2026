@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th = "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>대여하실 도서명을 입력해주세요</h2>
+	<h3>(대여기간은 대여일자 기준 2주입니다)</h3>
+	<form th:action="@{/book/rent/result}" method="GET">
+		<input type="text" name="title" placeholder="대여하실 도서명을 입력해주세요" />
+		<input type="text" name="name" placeholder="대여자 성함을 입력해주세요" />
+		<button type="submit">대여신청</button>
+	</form>
+</body>
+</html>

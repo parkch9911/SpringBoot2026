@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th = "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>도서대여신청이 완료되었습니다.</h2>
+	<p>도서명 : <span th:text="${new_title}"></span></p>
+	<p>저자명 : <span th:text="${new_author}"></span></p>
+	<p>도서번호 : <span th:text="${new_isbn}"></span></p>
+	<p>대여자명 : <span th:text="${new_name}"></span></p>
+	<p>대여일자 : <span th:text="${new_date}"></span></p>
+	<p>반납일자 : <span th:text="${new_back}"></span></p>
+</body>
+</html>
