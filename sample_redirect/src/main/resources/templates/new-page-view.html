@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>난 new Page</h1>
+	<!-- th의 if는 조건에 만족하면 자기자신이 아닌 text를 출력한다. 만약 false라면 해당 태그 자동삭제  -->
+	<p id="msg" th:if="${msg}" th:text="${msg}"></p>
+	
+<!-- 	<script>
+		let msg = document.getElementById("msg");
+		alert(msg);
+	</script>
+	 -->
+</body>
+</html>

@@ -9,5 +9,24 @@
 	<h2>메뉴를 선택해주세요</h2>\
 	<a href="/book/add">도서 추가</a>
 	<a href="/book/rent">도서 대여</a>
+	<hr/>
+	<h2>도서목록</h2>
+	<table>
+		<thead>
+			<th>도서명</th>
+			<th>저자명</th>
+			<th>도서번호</th>
+		</thead>
+		<tbody>
+			<tr th:each="li : ${list}">
+				<td th:text="${li.title}" style="border:1px solid black;">도서명</td>
+				<td th:text="${li.author}"style="border:1px solid black;">저자명</td>				
+				<td th:text="${li.isbn}" style="border:1px solid black;">도서번호</td>							
+			</tr>
+			<tr th:if="${#lists.isEmpty(list)}">
+				<td colspan="2">등록된 도서가 없습니다.</td>				
+			</tr>
+		</tbody>
+	</table>
 </body>
 </html>

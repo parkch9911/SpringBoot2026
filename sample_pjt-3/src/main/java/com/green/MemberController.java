@@ -21,6 +21,9 @@ public class MemberController {
 	// 아래 작성한 메소드들은 핸들러 메소드들이다.
 	//회원 가입양식
 	//http://localhost:8090/member/signup 의 경로를 매핑(=연결)
+	
+	
+	
 	@GetMapping("/member/signup") 
 	public String signUpForm() {
 		//아래의 프린트문은 log역할
@@ -30,12 +33,18 @@ public class MemberController {
 		return "signUpForm"; //응답에 사용하는 html 파일 이름 반환
 	}
 	
+	
+	
+	
 	//로그인폼 매핑
 	@GetMapping("/member/signin") 
 	public String signInForm() {
 		System.out.println("signInForm()");
 		return "signInForm"; //응답에 사용하는 html 파일 이름 반환
 	}
+	
+	
+	
 	
 	//회원가입한 데이터가 signUpResult 페이지로 전달되는 메소드
 	//가입한 자료를 매개변수로 넘겨줘야하므로 @RequestParam 사용한다.
@@ -59,6 +68,9 @@ public class MemberController {
 
 		return modelview;
 	}
+	
+	
+	
 	//로그인 결과화면
 	//ModelAndView 클래스는 model과 View를 하나로 합쳐서 클라이언트에 전달한다.
 	@PostMapping("/member/signIn_confirm")
