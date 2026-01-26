@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/css/common.css}">
+<link rel="stylesheet" th:href="@{/css/home.css}">
+<link rel="stylesheet" th:href="@{/css/header_nav_footer.css}">
+<link rel="stylesheet" th:href="@{/css/member.css}">
+<script th:src="@{/js/member.js}"></script>
+</head>
+<body>
+	<header th:replace="~{/include/header_nav_footer.html::header}"></header>
+	<nav th:replace="~{/include/header_nav_footer.html::nav}"></nav>
+	
+	<section>
+		<div id="section_wrap">
+			<div class="word"><h2>전체 회원 목록</h2></div>
+			<div class="content">
+				<table border="1">
+					<tbody>
+						<tr>
+							<th>번호</th>
+							<th>아이디</th>
+							<th>비밀번호</th>
+							<th>Email</th>
+							<th>Phone</th>
+							<th>가입일</th>
+							<th>수정일</th>
+						</tr>
+						<tr th:each="li : ${list}">
+							<td th:text="${li.no}"/>
+							<td th:text="${li.id}"/>
+							<td th:text="${li.pw}"/>
+							<td th:text="${li.mail}"/>
+							<td th:text="${li.phone}"/>
+							<td th:text="${li.reg_date}"/>
+							<td th:text="${li.mod_date}"/>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+	
+	<footer th:replace="~{/include/header_nav_footer.html::footer}"></footer>
+
+</body>
+</html>
