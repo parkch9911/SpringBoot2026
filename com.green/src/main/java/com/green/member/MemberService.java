@@ -50,7 +50,46 @@ public class MemberService {
 			return user_id_alreday_exit; // result = 0;
 		}
 	}
+	//----------------------2026년01월27일 서비스 로직 작성 시작--------------------------
+	//MemberDAO 에서 oneSelectMember 가져오는 메소드
+	public MemberDTO oneSelect(String id) {
+		return memberdao.oneSelectMember(id);
+	}
 	
+	//한사람의 패스워드만 출력하는 메소드
+	//MemberDAO 에서 UPDATE랑 비밀번호 받는거 가져오는 메소드
+	public String onePass(String id) {
+		//데이터타입이 존재하면 반드시 return 필요
+		return memberdao.getPass(id);
+	}
 	
+	//개인 한사람의 정보를 수정하는 메소드
+	//DB의 패스워드와 일치하는지 비교
+	//DB의 패스워드와 내가 입력한 패스워드가 (같을/다를) 때 실행문
+	public boolean modifyMember(MemberDTO mdto) {
+		//1. DB조회
+		String dbPass = memberdao.getPass(mdto.getId());
+		System.out.println("dbPass"+dbPass);
+		//if로 비교
+		int a = memberdao.updateMember(mdto);
+		if(dbPass.equals(mdto.getPw()) && dbPass != null) {
+			//내가 입력한 DB의 패스워드가 존재할 때
+			System.out.println("수정서비스 :"+a);
+			return memberdao.updateMember(mdto) == 1;
+		}else {
+			//내가 입력한 DB의 패스워드가 존재하지 않을 때
+			return false;
+		}
+	}
+	
+	//개인 한사람의 회원정보를 삭제하는 메소드
+	public boolean oneDelete(String id) {
+		System.out.println("MemberService oneDelete()메소드 확인");
+		//현재 deleteMember() DAO의 결과값이 result == 0 or 1
+		//삭제되면 1, 아니면 0 
+		//memberdao.deleteMember(id) => 1 == 1 => true
+		//memberdao.deleteMember(id) => 0 == 1 => false
+		return memberdao.deleteMember(id) == 1;
+	}
 
 }

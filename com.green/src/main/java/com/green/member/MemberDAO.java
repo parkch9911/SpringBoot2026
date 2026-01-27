@@ -13,7 +13,6 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-
 @Repository // 데이터 저장소
 public class MemberDAO {
 
@@ -112,16 +111,116 @@ public class MemberDAO {
 	  }
 	  return result;	  
    }
-
-   //회원가입한 유저 모두 출력되는 메소드 작성 /그리고 이걸 컨트롤러에서 매핑하나
-   //DB에접근해서 for문으로 돌리나 아까 말하신 while? next 써서 하는건가 머지
-   //while로 다 접근해서  html에서 th:each로 하는건가..
-   // try catch로  throw 해주라는건가 예외던지기? 
-
    
-   
+   //
+   //
    public boolean isMember(String id) {
 	   System.out.println("MemberDAO isMember()메소드 확인");
 	   return false;
    }
+   
+   //---------------------2026년 1월 27일 추가쿼리 작성부분------------------------
+   //개인 한 사람의 정보를 검색하는 메소드
+   public MemberDTO oneSelectMember(String id) {
+	   //log는 반드시 찍는다.
+	   System.out.println("MemberDAO oneSelectMember()메소드 호출");
+	   //반환받을 MemberDTO 객체를 생성한다.
+	   MemberDTO mdto = new MemberDTO();
+	   //SQL 구문 작성 
+	   String sql = "SELECT * FROM user_member WHERE id=?";
+	   //예외처리하는 try(자동 close를 위해 Connection 설정) ~ catch()
+	   try(
+			  Connection conn = dataSource.getConnection();
+			  PreparedStatement pstmt = conn.prepareStatement(sql);
+			   ){
+		   		//실행문 작성은 여기
+		   		// ? 대응을 먼저 작성한다.
+		   	pstmt.setString(1, id); //여기서 1 은 sql문의 첫번째 물음표 대응 순서
+		   	// select 문은 반드시 ResultSet객체에 담는다.
+		   	ResultSet rs = pstmt.executeQuery();
+		   	//mdto.setid(~~) 담는다. 
+		   	//rs.next() 없이 값을 꺼내오면 항상 빈 DTO임을 주의하자 
+		   	//배열이 아닌 한사람의 정보를 꺼내올때도 if 로 물어봐주어야함. 
+		   	if(rs.next()){
+			   	mdto.setNo(rs.getInt("no"));
+				mdto.setId(rs.getString("id"));
+				mdto.setPw(rs.getString("pw"));
+				mdto.setMail(rs.getString("mail"));
+				mdto.setPhone(rs.getString("phone"));
+				mdto.setReg_date(rs.getString("reg_date"));
+				mdto.setMod_date(rs.getString("mod_date"));
+		   	}
+			
+	   }catch(Exception e) {
+		   e.printStackTrace();
+	   }   
+	return mdto; 
+   }
+   
+   //개인 한사람의 정보를 수정하는 쿼리
+   public int updateMember(MemberDTO mdto) {
+	   System.out.println("MemberDAO updateMember()메소드 호출");
+	   int result = 0;
+	   String sql = "UPDATE user_member SET mail=?,phone=? WHERE id=?";
+	   try(
+			   Connection conn = dataSource.getConnection();
+			   PreparedStatement pstmt = conn.prepareStatement(sql);
+			   ){
+		   	//물음표 3개 대응해야한다.
+		   pstmt.setString(1, mdto.getMail());
+		   pstmt.setString(2, mdto.getPhone());
+		   pstmt.setString(3, mdto.getId());
+		   result = pstmt.executeUpdate();
+		   System.out.println("UPDATE result = "+result);
+		   
+	   }catch(Exception e) {
+		   e.getStackTrace();
+	   }
+	   return result;
+   }
+   
+   //개인 한사람의 패스워드만 리턴하는 쿼리
+   public String getPass(String id) {
+	   System.out.println("MemberDAO getPass()메소드 호출");
+	   String pass = "";
+	   String sql = "SELECT pw FROM user_member WHERE id=?";
+	   try(
+			   Connection conn = dataSource.getConnection();
+			   PreparedStatement pstmt = conn.prepareStatement(sql);
+			   
+			   ){
+		   pstmt.setString(1, id);
+		   ResultSet rs = pstmt.executeQuery(); //ResultSet 은 SELECT 문 일때만 사용한다.
+		   if(rs.next()) {
+			   pass = rs.getString(1); //패스워드값에 저장된 MappingIndex
+		   }
+		   System.out.println("getPass pw = "+pass);
+	   }catch(Exception e) {
+		   e.getStackTrace();
+	   }
+	   return pass;
+   }
+   
+   // 단, 정보를 수정할 때 패스워드가 일치하는지 확인할것
+   
+   //한사람 개인의 정보를 삭제하는 메소드 작성
+   public int deleteMember(String id) {
+	   int result = 0;
+	   String sql = "DELETE FROM user_member WHERE id=?";
+	   try(
+			   Connection conn = dataSource.getConnection();
+			   PreparedStatement pstmt = conn.prepareStatement(sql);
+			   ){
+		   pstmt.setString(1, id);
+		   //쿼리문 실행할때 executeUpdate() 는 DELETE , INSERT , UPDATE 문에 사용한다.
+		   //executeQuery() 는 SELECT 문에 사용한다.
+		   result = pstmt.executeUpdate();
+
+	   }catch(Exception e) {
+		   e.getStackTrace();
+	   }
+	   return result;
+   }
+ 
+   
 }
