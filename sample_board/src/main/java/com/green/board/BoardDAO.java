@@ -47,7 +47,7 @@ public class BoardDAO {
 	}
 	
 	//게시물 작성 (추가) 하는 쿼리========================================
-	public int addPost(BoardDTO bdto) {
+	public int addPost(BoardDTO bdto) { //가입실패도있어서 여기서 int로 데이터타입 지정
 		System.out.println("DAO))===Board DAO addPost (게시글 추가 메소드) 출력 확인===");
 		String sql = "INSERT INTO board(title,content,writer) VALUES(?,?,?)";
 		int result = 0;
@@ -61,7 +61,7 @@ public class BoardDAO {
 			
 			//아래 오른쪽 저거는 INSERT UPDATE DELETE 문에서만 사용하기
 			result = pstmt.executeUpdate();
-	
+			//영향을 받는 행 수를 나타내는 int 이며...
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -77,10 +77,13 @@ public class BoardDAO {
 		try(
 				Connection conn = dataSource.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql);
-				ResultSet rs = pstmt.executeQuery();
+				
 				){
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
 			//실행문 next쓰는거 무조건 물어봐줘야한다고했으니까 
 			// if로 한번 물어보기 근데 그럼 ResultSet에 담아야하나
+			
 			if(rs.next()) {
 				bdto.setId(rs.getInt("id"));
 				bdto.setTitle(rs.getString("title"));

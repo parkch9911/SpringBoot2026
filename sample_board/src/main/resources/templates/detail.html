@@ -2,9 +2,148 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>게시글 상세보기</title>
+
+<style>
+    body {
+        font-family: "Noto Sans KR", sans-serif;
+        background-color: #f5f6f7;
+        margin: 0;
+        padding: 40px;
+    }
+
+    section {
+        display: flex;
+        justify-content: center;
+    }
+
+    #section_wrap {
+        width: 600px;
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .word h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 25px;
+    }
+
+    table td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+        font-size: 14px;
+    }
+
+    table td:first-child {
+        width: 130px;
+        background-color: #f3f6fb;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .btn-area {
+        text-align: center;
+    }
+
+    .btn-area a {
+        display: inline-block;
+        margin: 6px;
+        padding: 10px 18px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: bold;
+        color: white;
+        background-color: #2b7cff;
+    }
+
+    .btn-area a:hover {
+        background-color: #1f63cc;
+    }
+
+    .btn-area a:nth-child(2) {
+        background-color: #e74c3c;
+    }
+
+    .btn-area a:nth-child(2):hover {
+        background-color: #c0392b;
+    }
+
+    .btn-area a:nth-child(3) {
+        background-color: #888;
+    }
+
+    .btn-area a:nth-child(3):hover {
+        background-color: #666;
+    }
+
+    .btn-area a:nth-child(4) {
+        background-color: #27ae60;
+    }
+
+    .btn-area a:nth-child(4):hover {
+        background-color: #1e8f4f;
+    }
+</style>
+
 </head>
 <body>
+
+<section>
+    <div id="section_wrap">
+        <div class="word">
+            <h2>게시글 상세보기</h2>
+        </div>
+
+        <div class="content">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>게시글 번호</td>
+                        <td th:text="${onePost.id}"></td>
+                    </tr>
+                    <tr>
+                        <td>제목</td>
+                        <td th:text="${onePost.title}"></td>
+                    </tr>
+                    <tr>
+                        <td>내용</td>
+                        <td th:text="${onePost.content}"></td>
+                    </tr>
+                    <tr>
+                        <td>작성자</td>
+                        <td th:text="${onePost.writer}"></td>
+                    </tr>
+                    <tr>
+                        <td>작성일</td>
+                        <td th:text="${onePost.createdAt}"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="btn-area">
+                <a th:href="@{/modify(id=${onePost.id})}">게시글 수정</a>
+
+                <a th:href="@{/delete(id=${onePost.id})}"
+                   onclick="return confirm('게시글을 삭제하시겠습니까?')">
+                    게시글 삭제
+                </a>
+
+                <a th:href="@{/}">목록보기</a>
+                <a th:href="@{/write}">게시글 작성</a>
+            </div>
+        </div>
+    </div>
+</section>
 
 </body>
 </html>

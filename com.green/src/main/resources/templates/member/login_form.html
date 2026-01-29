@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/css/common.css}">
+<link rel="stylesheet" th:href="@{/css/home.css}">
+<link rel="stylesheet" th:href="@{/css/header_nav_footer.css}">
+<link rel="stylesheet" th:href="@{/css/member.css}">
+<script th:src="@{/js/member.js}"></script>
+</head>
+<body>
+	<header th:replace="~{/include/header_nav_footer.html::header}"></header>
+	<nav th:replace="~{/include/header_nav_footer.html::nav}"></nav>
+	
+	<section>
+		<div id="section_wrap">
+			<div class="word">
+				<h2>로그인</h2>
+			</div>
+			<div class="content">
+				<form th:action="@{/member/loginPro}" method="POST">
+					<table border="1">
+						<tr>
+							<td>아이디</td>
+							<td>
+								<input type="text" name="id" placeholder="아이디를입력하세요" required/>
+							</td>
+						</tr>
+						<tr>
+							<td>비밀번호</td>
+							<td>
+								<input type="password" name="pw" placeholder="비밀번호를입력하세요" required/>
+							</td>
+						</tr>
+						<tr>
+							<td align="center" colspan="2">
+								<input type="submit" value="로그인"/>
+								<input type="button" value="회원가입" th:onclick/>
+							</td>
+						</tr>
+					</table>
+					<!-- 버튼 : 회원수정 ,회원삭제 ,목록보기 ,회원가입 생성 -->
+				</form>
+			</div>
+		</div>
+	</section>
+	
+	<footer th:replace="~{/include/header_nav_footer.html::footer}"></footer>
+	<script th:if="${msg}">
+		alert('[[${msg}]]')
+	</script>
+</body>
+</html>

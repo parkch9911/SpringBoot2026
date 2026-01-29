@@ -4,7 +4,13 @@
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="isRegEx" value="false"/>
+		<item key="selection" value="삭제"/>
 		<list key="findhistory">
+			<item value="dataSource"/>
+			<item value="num4"/>
+			<item value="board/list"/>
+			<item value="isMem"/>
+			<item value="Pw"/>
 			<item value="signupConfirm"/>
 			<item value="or"/>
 		</list>

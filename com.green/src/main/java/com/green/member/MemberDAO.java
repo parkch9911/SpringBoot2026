@@ -1,7 +1,5 @@
 package com.green.member;
 
-import com.green.HomeController;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,9 +34,8 @@ public class MemberDAO {
 			Connection conn = dataSource.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 				//select 구문은 executeQuery()를 실행한 결과를
-			ResultSet rs = pstmt.executeQuery();
 				  ){
-			
+			ResultSet rs = pstmt.executeQuery();
 			// rs의 결과 값
 			// no id pw mail phone reg_date  mod_date
 			// 1  1  1   1     1     2026~     2026~
@@ -205,6 +202,7 @@ public class MemberDAO {
    
    //한사람 개인의 정보를 삭제하는 메소드 작성
    public int deleteMember(String id) {
+	   System.out.println("MemberDAO deleteMember()메소드 호출");
 	   int result = 0;
 	   String sql = "DELETE FROM user_member WHERE id=?";
 	   try(
@@ -222,5 +220,6 @@ public class MemberDAO {
 	   return result;
    }
  
+   
    
 }

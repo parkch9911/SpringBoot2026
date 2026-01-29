@@ -3,6 +3,7 @@ package com.green.member;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 // controller -> service : DAO 메소드 찾아있어 
@@ -23,6 +24,10 @@ public class MemberService {
 	//MemberDAO도 DI를 정의한다.
 	@Autowired
 	MemberDAO memberdao;
+	
+	//PasswordEncoder 객체도 DI(의존객체)를 정의한다.
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
 	//회원 전체 목록 출력하는 메소드
 	public List<MemberDTO> allListMember(){
@@ -38,7 +43,18 @@ public class MemberService {
 		boolean isMember = memberdao.isMember(mdto.getId());
 		//회원가입 중복체크 통과했다면
 		if(isMember == false) {
+			
+			
+			//문자인 pw를 암호화된 비밀번호로 변화해주는 코드   //암호화하고싶은 필드명
+			//encode = 암호화(인간어->기계어) //decode = 복호화(기계어->인간어)
+			//String encoderpw = passwordEncoder.encode(mdto.getPw());
+			String encodepw = passwordEncoder.encode(mdto.getPw());
+			
+			//암호화된 encodepw를 mdto.getPw() => 수정
+			mdto.setPw(encodepw);
+			
 			// 중복된 아이디가 존재하지 않을 때 DB에 회원의 정보가 추가된다.
+			// DB에 회원이 추가되는 부분 -> 암호화가 이루어져야한다.
 			int result = memberdao.insertMember(mdto);
 			if(result > 0 ) {
 				return user_id_success; // result = 1
@@ -53,12 +69,14 @@ public class MemberService {
 	//----------------------2026년01월27일 서비스 로직 작성 시작--------------------------
 	//MemberDAO 에서 oneSelectMember 가져오는 메소드
 	public MemberDTO oneSelect(String id) {
+		System.out.println("MemberService oneSelect()메소드 확인");
 		return memberdao.oneSelectMember(id);
 	}
 	
 	//한사람의 패스워드만 출력하는 메소드
 	//MemberDAO 에서 UPDATE랑 비밀번호 받는거 가져오는 메소드
 	public String onePass(String id) {
+		System.out.println("MemberService onePass()메소드 확인");
 		//데이터타입이 존재하면 반드시 return 필요
 		return memberdao.getPass(id);
 	}
@@ -67,6 +85,7 @@ public class MemberService {
 	//DB의 패스워드와 일치하는지 비교
 	//DB의 패스워드와 내가 입력한 패스워드가 (같을/다를) 때 실행문
 	public boolean modifyMember(MemberDTO mdto) {
+		System.out.println("MemberService modifyMember()메소드 확인");
 		//1. DB조회
 		String dbPass = memberdao.getPass(mdto.getId());
 		System.out.println("dbPass"+dbPass);
@@ -92,4 +111,22 @@ public class MemberService {
 		return memberdao.deleteMember(id) == 1;
 	}
 
+	//암호화 된 DB의 pw를 복호화하여 로그인하는 메소드
+	public MemberDTO loginConfirm(MemberDTO mdto) {
+		System.out.println("MemberService loginConfirm()메소드 확인");
+		
+		// 1. DB에서 해당정보의 id가져오기
+		MemberDTO dbMember = memberdao.oneSelectMember(mdto.getId());
+		
+		// 2. DB에서 꺼내온 id의 비밀번호와 입력한 값이 일치하는지 확인
+		// 암호화된 데이터를 PasswordEncoder.matches(사용자가 입력한 문 , DB에 저장된 암호문)
+		if(dbMember != null && dbMember.getPw() != null) {
+			//복호화 시켜서 비교하는 중... 
+			if(passwordEncoder.matches(mdto.getPw(), dbMember.getPw())) {
+				//로그인 성공한 경우
+				return dbMember;
+			}
+		}
+		return null; //로그인 실패
+	}
 }

@@ -2,9 +2,165 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>게시글 작성</title>
+<style>
+    body {
+        font-family: "Noto Sans KR", sans-serif;
+        background-color: #f5f6f7;
+        margin: 0;
+        padding: 40px;
+    }
+
+    section {
+        display: flex;
+        justify-content: center;
+    }
+
+    #section_wrap {
+        width: 520px;
+        background-color: #ffffff;
+        padding: 35px;
+        border-radius: 12px;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+    }
+
+    .word h2 {
+        text-align: center;
+        margin-bottom: 35px;
+        color: #222;
+        letter-spacing: 1px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    td {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    input[type="text"],
+    textarea {
+        width: 100%;
+        padding: 11px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 14px;
+        box-sizing: border-box;
+        transition: 0.2s;
+    }
+
+    textarea {
+        height: 140px;
+        resize: none;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus {
+        outline: none;
+        border-color: #2b7cff;
+        box-shadow: 0 0 0 3px rgba(43,124,255,0.18);
+    }
+
+    /* 버튼 영역 */
+    td[colspan="2"] {
+        padding-top: 25px;
+    }
+
+    input[type="submit"],
+    input[type="reset"],
+    .btn-link {
+        display: inline-block;
+        padding: 11px 26px;
+        margin: 6px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        color: white;
+        transition: 0.2s;
+    }
+
+    input[type="submit"] {
+        background-color: #2b7cff;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #1f63cc;
+    }
+
+    input[type="reset"] {
+        background-color: #999;
+    }
+
+    input[type="reset"]:hover {
+        background-color: #777;
+    }
+
+    .btn-link {
+        background-color: #27ae60;
+    }
+
+    .btn-link:hover {
+        background-color: #1f8a4c;
+    }
+</style>
+
+
 </head>
 <body>
+
+<section>
+    <div id="section_wrap">
+        <div class="word">
+            <h2>게시글 작성</h2>
+        </div>
+
+        <div class="content">
+            <form th:action="@{/write/complete}" method="POST">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td width="120" align="center">제목</td>
+                            <td>
+                                <input type="text" name="title"
+                                       placeholder="제목을 입력하세요">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td align="center">내용</td>
+                            <td>
+                                <textarea name="content"
+                                          placeholder="내용을 입력하세요"></textarea>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td align="center">작성자</td>
+                            <td>
+                                <input type="text" name="writer"
+                                       placeholder="작성자를 입력하세요">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2" align="center">
+                                <input type="submit" value="작성완료">
+                                <input type="reset" value="초기화">
+                                <a th:href="@{/}" class="btn-link">홈으로 이동</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</section>
 
 </body>
 </html>

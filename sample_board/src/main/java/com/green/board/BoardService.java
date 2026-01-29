@@ -37,5 +37,12 @@ public class BoardService {
 		return boarddao.delPost(id)==1;
 	}
 	
+	//게시물 작성하는 메서드==========================================================================
+	public int writePost(BoardDTO bdto) {
+		System.out.println("Service))===Board Service writePost(게시물 작성 메소드) 출력 확인===");
+		int completePost = boarddao.addPost(bdto);
+		return completePost;
+	}
+	
 	
 }

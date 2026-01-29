@@ -1,7 +1,0 @@
-package com.green.controller;
-
-
-@Controller
-public class Controller {
-
-}
