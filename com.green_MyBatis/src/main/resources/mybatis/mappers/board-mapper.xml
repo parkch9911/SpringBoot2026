@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- 매개변수 자리는 파라미터로 받고  데이터타입을 result로 받는다. DTO라면 경로로 삽입. -->
+<mapper namespace="com.green.board.mapper.BoardMapper">
+
+	<!-- public void insertBoard(BoardDTO bdto) -->
+	<!-- "INSERT INTO otboard(writer, subject, writerPw, content) VALUES(?,?,?,?)" -->
+	<!-- 게시물 추가 -->
+	<insert id="insertBoard" parameterType="BoardDTO">
+		INSERT INTO otboard(writer,subject,writerPw,content,id) VALUES(#{writer},#{subject},#{writerPw},#{content},#{id})
+	</insert>
+	
+	<!-- public List<BoardDTO> getAllBoard() -->
+	<!-- String sql = "SELECT * FROM otboard ORDER BY num DESC"; -->
+	<!-- 게시물 전체 출력 -->
+	<select id="getAllBoard" resultType="BoardDTO">
+		SELECT * FROM otboard ORDER BY num DESC
+	</select>
+	
+	<!-- public int updateBoard(BoardDTO bdto)  -->
+	<!-- String sql = "UPDATE otboard SET subject=?, content=? WHERE num=? AND writerPw=?"; -->
+	<!-- 게시물 수정 -->
+	<update id="updateBoard" parameterType="BoardDTO">
+		UPDATE otboard SET subject=#{subject}, content=#{content} WHERE num=#{num} AND writerPw=#{writerPw}
+	</update>
+	
+	<!-- // 게시글 작성 시 비밀번호 입력하였기때문에 삭제시에도 비밀번호와 번호가 일치하는지 체크
+		public int deleteBoard(int num, String writerPw)-->
+		<!-- String sql = "DELETE FROM otboard WHERE num=? AND writerPw=?";
+		게시물 삭제                파라미터가 두개이상이라 @Param 을 BoardMapper에서 써서 안쓴다고 하셨는데 그럼 id만? -->
+	<delete id="deleteBoard">
+		DELETE FROM otboard WHERE num=#{num} AND writerPW=#{writerPw}
+	</delete>
+		
+	<!-- public BoardDTO getOneBoard(int num) -->
+	<!-- String sql = "UPDATE otboard SET readcount=readcount+1 WHERE num=?"
+			String sql2 = "SELECT * FROM otboard WHERE num=?";	 -->
+			<!-- 이건 sql문이 두개라서 두개로 나누라고 하셨는데 일단 보류 서비스에서 어떻게 수정해야하는지 이해를 못했음 ㅎㅎ --> 
+	<update id="upReadCount" parameterType="int">
+		UPDATE otboard SET readcount = readcount + 1 WHERE num=#{num}
+	</update>
+	
+	<select id="getOneBoard" parameterType="int" resultType="BoardDTO">
+		SELECT * FROM otboard WHERE num = #{num}
+	</select>
+	
+	
+	<!-- public List<BoardDTO> getSearchBoard(String searchType, String searchKeyword) -->
+	<!-- String sql = "";
+			if("subject".equals(searchType)) {
+				// 입력한 문자를 포함하는 검색 명령어
+				// SELECT 필드명 FROM 테이블명 WHERE 검색필드명 LIKE %키워드%;
+				sql = "SELECT * FROM otboard WHERE subject LIKE ? ORDER BY num DESC";
+			}else {
+				//내용관련
+				sql = "SELECT * FROM otboard WHERE content LIKE ? ORDER BY num DESC";
+			}
+			여기서는 if쓰고 else 못쓴다고 다른거 쓰신다고 하셨으니까 일단 보류
+			게시물 검색 -->
+	<select id="getSearchBoard" resultType="BoardDTO">
+		SELECT * FROM otboard
+		<where>
+			<choose>
+			<!-- <when test="조건식" => a == b -->
+				<when test="searchType == 'subject'">
+					subject LIKE CONCAT("%",#{searchKeyword},"%")
+				</when>
+				<otherwise>
+					content LIKE CONCAT("%",#{searchKeyword},"%")
+				</otherwise>
+			</choose>
+		</where>
+	 ORDER BY num DESC
+	</select>
+
+
+
+
+</mapper>

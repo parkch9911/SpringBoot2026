@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace는 MemberMapper의 패키지 경로를 복사 붙이기 할 것 .인터페이스이름 -->
+<mapper namespace="com.green.member.mapper.MemberMapper">
+<!-- 매개변수 자리는 파라미터로 받고  데이터타입을 result로 받는다. DTO라면 경로로 삽입. -->
+
+
+<!-- public int insertMember(MemberDTO mdto); -->
+<!-- insert / update / delete 문은 resultType를 사용하지 않는다 -->
+<!-- insert / update / delete 문은 한 행의 결과를 int로 반환한다. -->
+<insert id="insertMember" parameterType="MemberDTO">
+	INSERT INTO user_member(id,pw,mail,phone) VALUES(#{id},#{pw},#{mail},#{phone})
+</insert>
+
+<!-- public boolean isMember(String id); -->
+<!-- SELECT문은 resultType을 정의한다. -->
+<select id="isMember" parameterType="String" resultType="boolean">
+	SELECT COUNT(*) FROM user_member WHERE id=#{id}
+</select>
+
+<!-- public MemberDTO oneSelectMember(String id) -->
+<select id="oneSelectMember" parameterType="String" resultType="MemberDTO">
+	SELECT * FROM user_member WHERE id=#{id}
+</select>	
+
+<!-- public List<MemberDTO> allSelectMember(); -->
+<select id="allSelectMember" resultType="MemberDTO"> <!-- 이건 왜 파라미터 안받지? : 매개변수가 없어서 -->
+	SELECT * FROM user_member
+</select>
+
+<!-- public String getPass(String id) -->
+<select id="getPass" parameterType="String" resultType="String">
+	SELECT pw FROM user_member WHERE id=#{id}
+</select>
+
+<!-- public int deleteMember(String id); -->
+<delete id="deleteMember" parameterType="String">
+	DELETE FROM user_member WHERE id=#{id}
+</delete>
+
+<!-- public int updateMember(MemberDTO mdto) -->
+<update id="updateMember" parameterType="MemberDTO">
+	UPDATE user_member SET mail=#{mail},phone=#{phone} WHERE id=#{id}
+</update>
+
+
+</mapper>

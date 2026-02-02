@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"https://mybatis.org/
+dtd/mybatis-3-config.dtd">
+<!-- 전역 환경 설정 -->
+<configuration>
+
+<!-- 별칭을 작성하는 명령어 태그 : typeAliases -->
+	<typeAliases>
+		<typeAlias alias="BoardDTO" type="com.green.board.BoardDTO"/>
+		<typeAlias alias="MemberDTO" type="com.green.member.MemberDTO"/>
+	</typeAliases>
+<!-- 	<mappers>
+		<mapper resource="mybatis/mappers/member-mapper.xml"/>
+	</mappers> -->
+</configuration>

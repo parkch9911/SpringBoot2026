@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 매개변수 타입 자리는 파라미터로 받고  데이터타입을 result로 받는다. DTO라면 경로로 삽입. -->
+<mapper namespace="com.green.board.mapper.BoardMapper">
+<!-- 	//전체 게시물============
+	public List<BoardDTO> allPost();-->
+	<select id="allPost" resultType="BoardDTO">
+		SELECT * FROM board;
+	</select>
+	
+	<!-- //게시물 작성 (추가) 하는 쿼리====
+	public int addPost(BoardDTO bdto);
+	"INSERT INTO board(title,content,writer) VALUES(?,?,?)"-->
+	<insert id="addPost" parameterType="BoardDTO">
+		INSERT INTO board(title,content,writer) VALUES(#{title},#{content},#{writer})
+	</insert>
+	
+	<!--//게시물 하나 검색하는거
+	public BoardDTO thisPost(int id);
+	"SELECT * FROM board WHERE id=?";-->
+	<select id="thisPost" resultType="BoardDTO" parameterType="int">
+		SELECT * FROM board WHERE id=#{id}
+	</select>
+	
+	<!--//게시물 수정하는 쿼리 
+	public int modPost(BoardDTO bdto);
+	"UPDATE board SET title=?,content=? WHERE id=?"-->
+	<update id="modPost" parameterType="BoardDTO">
+		UPDATE board SET title=#{title},content=#{content} WHERE id=#{id}
+	</update>
+	
+	<!--//게시물 삭제하는 쿼리 
+	public int delPost(int id);
+	"DELETE FROM board WHERE id=?"; -->
+	<delete id="delPost" parameterType="int">
+		DELETE FROM board WHERE id=#{id}
+	</delete>
+	
+</mapper>

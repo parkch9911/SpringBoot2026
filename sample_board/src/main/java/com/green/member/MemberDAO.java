@@ -14,7 +14,6 @@ import org.springframework.stereotype.Repository;
 import com.green.board.BoardDTO;
 import com.mysql.cj.protocol.Resultset;
 
-
 @Repository
 public class MemberDAO {
 

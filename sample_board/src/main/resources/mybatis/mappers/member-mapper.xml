@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- 매개변수 타입 자리는 파라미터로 받고  데이터타입을 result로 받는다. DTO라면 경로로 삽입.
+	select문은 result타입 필수
+ -->
+ 
+<mapper namespace="com.green.member.mapper.MemberMapper">
+	
+	<select id="allUser" resultType="MemberDTO">
+		SELECT * FROM user
+	</select>
+
+	<insert id="addUser" parameterType="MemberDTO">
+		INSERT INTO user(id,pw,name) VALUES(#{id},#{pw},#{name})
+	</insert>
+
+	<select id="oneUser" parameterType="String" resultType="MemberDTO">
+		SELECT * FROM user WHERE id=#{id}
+	</select>
+	
+	<update id="updateUser" parameterType="MemberDTO">
+		UPDATE user SET name=#{name}
+	</update>
+	
+	<delete id="deleteUser" parameterType="String">
+		DELETE * FROM user WHERE id=#{id}
+	</delete>
+
+</mapper>
