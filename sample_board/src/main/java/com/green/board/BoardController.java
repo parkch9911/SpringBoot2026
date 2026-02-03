@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.green.member.MemberDTO;
 
+import jakarta.servlet.http.HttpSession;
 
 
 @Controller
@@ -87,8 +89,16 @@ public class BoardController {
 		
 		//게시글 처리 컨트롤러
 		@PostMapping("/write/complete")
-		public String postComplete(BoardDTO bdto, Model model) {
+		public String postComplete(BoardDTO bdto,HttpSession session) {
 			System.out.println("Controller))===Board Controller postComplete (게시글 추가완료) 출력 확인===");
+			MemberDTO whoLog = (MemberDTO)session.getAttribute("whoLog");
+			if(whoLog != null) {
+				bdto.setId(whoLog.getNum());
+	 
+			}else {
+				return "redirect:/member/login";
+			}
+			
 			boardservice.writePost(bdto);
 				return "redirect:/";
 		}

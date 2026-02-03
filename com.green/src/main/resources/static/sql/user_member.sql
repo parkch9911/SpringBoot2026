@@ -31,6 +31,7 @@ subject varchar(30),
 writerPw varchar(20),
 reg_date datetime default now(),
 readcount int default 0,
-content varchar(1000)
+content varchar(1000),
+id varchar(20)user
 );
 

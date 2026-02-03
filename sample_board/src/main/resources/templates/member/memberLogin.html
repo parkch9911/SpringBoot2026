@@ -3,8 +3,142 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/css/headercss.css}">
+<style>
+/* 전체 기본 설정 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Noto Sans KR", sans-serif;
+    background-color: #f5f6f7;
+}
+
+/* 섹션 래퍼 */
+#section_wrap {
+    width: 400px;
+    margin: 80px auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+/* 제목 영역 */
+.word {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.word h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+/* 테이블 */
+.content table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.content td {
+    padding: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+.content td:first-child {
+    width: 90px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* input */
+.content input[type="text"],
+.content input[type="password"] {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.content input[type="text"]:focus,
+.content input[type="password"]:focus {
+    outline: none;
+    border-color: #4a90e2;
+}
+
+/* 버튼 영역 */
+.content td[colspan="2"] {
+    padding-top: 20px;
+}
+
+/* 로그인 버튼 */
+.content input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #4a90e2;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.content input[type="submit"]:hover {
+    background-color: #357ab8;
+}
+
+/* 회원가입 링크 */
+.content a {
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #4a90e2;
+    text-decoration: none;
+}
+
+.content a:hover {
+    text-decoration: underline;
+}
+
+</style>
 </head>
 <body>
-	
+<header th:replace="~{/header/header.html::header}"></header>
+	<section>
+		<div id="section_wrap">
+			<div class="word">
+				<h2>로그인</h2>
+			</div>
+			<div class="content">
+				<form th:action="@{/member/loginCheck}" method="POST">
+					<table border="1">
+						<tr>
+							<td>아이디</td>
+							<td>
+								<input type="text" name="id" placeholder="아이디를입력하세요" required/>
+							</td>
+						</tr>
+						<tr>
+							<td>비밀번호</td>
+							<td>
+								<input type="password" name="pw" placeholder="비밀번호를입력하세요" required/>
+							</td>
+						</tr>
+						<tr>
+							<td align="center" colspan="2">
+								<input type="submit" value="로그인"/>
+								<a th:href="@{/member/signup}" value="회원가입">회원가입</a>
+							</td>
+						</tr>
+					</table>
+					<!-- 버튼 : 회원수정 ,회원삭제 ,목록보기 ,회원가입 생성 -->
+				</form>
+			</div>
+		</div>
+	</section>
 </body>
 </html>

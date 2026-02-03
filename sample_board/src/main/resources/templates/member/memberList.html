@@ -3,8 +3,117 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/css/headercss.css}">
 </head>
-<body>
+<style>
+/* ===== SECTION ===== */
+#section_wrap {
+    max-width: 900px;
+    margin: 40px auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
 
+/* 제목 */
+.word h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #2f3640;
+}
+
+/* 테이블 감싸는 영역 */
+.content {
+    overflow-x: auto;
+}
+
+/* ===== TABLE ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+/* 헤더 */
+table th {
+    background-color: #2f3640;
+    color: #ffffff;
+    padding: 12px 8px;
+    text-align: center;
+}
+
+/* 바디 */
+table td {
+    padding: 10px 8px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+/* 줄무늬 */
+table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+/* hover */
+table tbody tr:hover {
+    background-color: #eaf2ff;
+}
+
+/* 링크 (아이디) */
+table a {
+    color: #0984e3;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+table a:hover {
+    text-decoration: underline;
+}
+
+/* 번호 열 살짝 강조 */
+table td:first-child {
+    font-weight: bold;
+}
+
+/* 반응형 대비 */
+@media (max-width: 600px) {
+    table {
+        font-size: 13px;
+    }
+}
+</style>
+<body>
+<header th:replace="~{/header/header.html::header}"></header>
+<section>
+		<div id="section_wrap">
+			<div class="word"><h2>전체 회원 목록</h2></div>
+			<div class="content">
+				<table border="1">
+					<tbody>
+						<tr>
+							<th>번호</th>
+							<th>아이디</th>
+							<th>비밀번호</th>
+							<th>이름</th>
+							<th>가입일</th>
+						</tr>
+						<tr th:each="li : ${list}">
+							<td th:text="${li.num}"/>
+							<td>
+							<!-- thymeleaf를 이용해 id 값을 가지고가는 방식  -->
+							<!-- a태그에서 th:href = "@{~}" 무조건 GET방식으로 전송된다.  -->
+								<a th:href = "@{/member/memberMyPage(id=${li.id})}"
+								th:text = "${li.id}"></a>
+							</td>
+							<td th:text="${li.pw}"/>
+							<td th:text="${li.name}"/>
+							<td th:text="${li.reg_date}"/>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
 </body>
 </html>

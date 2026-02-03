@@ -66,7 +66,7 @@ public class BoardController {
 //		model.addAttribute("list",listboard);
 //		String nextPage = "board/boardList";
 //		return nextPage;
-//	}
+//	}  밑에 리스트 또 있음
 	
 	// 4. 하나의 게시글 상세정보 확인 핸들러
 	// num이라는 글번호를 받아서 해당 게시글을 DB에서 조회하고 상세정보를 
@@ -133,9 +133,19 @@ public class BoardController {
 	@GetMapping("/board/list")
 	public String boardList(Model model,
 			@RequestParam(value="searchType",required=false) String searchType,
-			@RequestParam(value="searchKeyword",required=false) String searchKeyword
+			@RequestParam(value="searchKeyword",required=false) String searchKeyword,
+			//1. 페이지 번호 => 1부터 시작이므로 초기값 1로 정의한다.
+			@RequestParam(value="page",defaultValue = "1") int page,
+			//2. 페이지 사이즈 (한 화면에 보여지는 게시글의 수를 5로 초기화한다.
+			@RequestParam(value="pageSize",defaultValue = "5") int pageSize
 			) {
 		System.out.println("1)BoardController boardList()메소드 호출");
+		
+		//3.전체 게시글 개수 totalCnt 메소드 가져오기
+		int totalCnt = boardservice.getAllcount();
+		
+		//4.PageHandler 클래스 접근하기 위해 인스턴스화 한다.
+		PageHandler ph = new PageHandler(totalCnt, page, pageSize);
 		
 		List<BoardDTO> listboard;
 		
@@ -145,13 +155,19 @@ public class BoardController {
 			//service에서 searchBoard
 			listboard = boardservice.searchBoard(searchType, searchKeyword);
 		}else {
-			listboard = boardservice.allBoard();
+			//검색하지 않고 List나오기
+			// boardservice.allBoard() => 사용못하는 이유는
+			// 페이징이 안된 모든 레코드가 출력되는 메소드이므로 사용금지
+			listboard = boardservice.getPageList(ph.getStartRow(), pageSize);
 		}
-		
 		//검색하지 않고 전체보기 list 나오기
 		model.addAttribute("list",listboard);
+		//PageHandler 클래스 모두 model 객체에 담아서 html로 보내야함
+		//그래야 UI화면에 페이징 그릴 수 있다.
+		model.addAttribute("ph",ph); // PageHandler 클래스를 인스턴스한 참조변수이다.
 		String nextPage = "board/boardList";
 		return nextPage;
 	}
+	//이 리스트에서 건드려야하겟지?
 	
 }

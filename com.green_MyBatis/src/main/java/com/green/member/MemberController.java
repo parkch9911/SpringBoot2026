@@ -162,6 +162,7 @@ public class MemberController {
 			//로그인 성공
 			//session 이용해서 loginMember 담기
 			session.setAttribute("loginmember", loginMember);
+			//컨트롤러에서 비교할땐 get 쓰기 // session.getAttribute();
 			//홈으로 이동
 			return "redirect:/";
 		}else {

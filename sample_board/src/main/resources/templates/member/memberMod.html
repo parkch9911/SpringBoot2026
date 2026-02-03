@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/css/headercss.css}">
+</head>
+<body>
+<style>
+section {
+    padding: 40px 0;
+}
+#section_wrap {
+    max-width: 700px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 30px 35px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.word h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2f3640;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+table th {
+    width: 30%;
+    background-color: #f1f2f6;
+    font-weight: bold;
+    text-align: center;
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+table input[type="text"],
+table input[type="password"] {
+    width: 90%;
+    padding: 8px 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+}
+table input:focus {
+    border-color: #0984e3;
+}
+
+table input[readonly] {
+    background-color: #f5f6fa;
+    color: #636e72;
+}
+
+/* ===== BUTTON AREA ===== */
+.btn-area {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.btn {
+    padding: 8px 18px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: #2f3640;
+    color: #ffffff;
+    transition: background-color 0.2s;
+}
+
+.btn:hover {
+    background-color: #414b57;
+}
+</style>
+<header th:replace="~{/header/header.html::header}"></header>
+<section>
+		<div id="section_wrap">
+			<div class="word">
+				<h2>개인 회원 정보 수정</h2>
+			</div>
+			<div class="content">
+				<form th:action="@{/member/modify}" method="POST">
+					<table border="1">
+						<tbody>
+							<tr>
+								<th>아이디</th>
+								<td>
+									<input type="text" name="id" th:value="${member.id}" readonly/>
+								</td>
+							</tr>
+							<tr>
+								<th>이름</th>
+								<td>
+								<input type="text" name="name" th:value="${member.name}"/>
+								</td>
+							</tr>
+							<tr>
+								<th>패스워드</th>
+								<td>
+									<input type="password" name="pw" required placeholder="본인 확인을 위해 비밀번호를 입력하세요."/>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!-- 버튼 : 회원수정 ,회원삭제 ,목록보기 ,회원가입 생성 -->
+					<div class="btn-area">
+						<button type="submit" class="btn">회원수정하기</button>
+						<a th:href="@{/member/list}" class="btn">목록보기</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+	<script th:if="${msg}">
+		alert('[[${msg}]]')
+	</script>
+</body>
+</html>

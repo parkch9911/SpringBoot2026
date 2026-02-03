@@ -71,4 +71,16 @@ public class BoardService {
 		return boardMapper.getSearchBoard(searchType, searchKeyword);
 	}
 	
+	//전체 게시글 수 구하는 메소드
+	public int getAllcount() {
+		System.out.println("3)BoardService getAllcount()메소드 호출");
+		return boardMapper.getAllCount();
+	}
+	
+	//한 화면에서 뿌려지는 limit 구하는 메소드? startRow, pageSize 까지의 행 검색
+	public List<BoardDTO> getPageList(int startRow, int pageSize){
+		System.out.println("3)BoardService getPageList()메소드 호출");
+		return boardMapper.getPageList(startRow, pageSize);
+	}
+	
 }

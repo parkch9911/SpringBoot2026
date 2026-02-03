@@ -76,7 +76,20 @@
 	 ORDER BY num DESC
 	</select>
 
-
+	<!--	//전체 게시글 수 구하는 메소드
+	public int getAllCount();-->
+	<select id ="getAllCount" resultType="int">
+		SELECT COUNT(*) FROM otboard
+	</select>
+	
+	<!--//전체 게시글의 시작 (startRow),몇개의 행(pageSize) 만큼 보는 메소드
+	public List<BoardDTO> getPageList(@Param("startRow") int startRow,
+									  @Param("pageSize") int pageSize);-->
+	<select id ="getPageList" resultType="BoardDTO">
+		SELECT * FROM otboard ORDER BY num DESC LIMIT #{startRow},#{pageSize}
+	</select>
+	
+	
 
 
 </mapper>

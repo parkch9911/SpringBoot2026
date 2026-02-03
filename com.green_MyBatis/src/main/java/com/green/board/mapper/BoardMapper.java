@@ -33,7 +33,14 @@ public interface BoardMapper {
 	//검색메소드 반드시, searchType, searchKeyword 매개변수 필요
 	//매개변수가 두개 이상이면 @Param으로 받는다.
 	public List<BoardDTO> getSearchBoard(@Param("searchType") String searchType,
-										@Param("searchKeyword")String searchKeyword);
+										 @Param("searchKeyword")String searchKeyword);
+	
+	//전체 게시글 수 구하는 메소드
+	public int getAllCount();
+	
+	//전체 게시글의 시작 (startRow),몇개의 행(pageSize) 만큼 보는 메소드
+	public List<BoardDTO> getPageList(@Param("startRow") int startRow,
+									  @Param("pageSize") int pageSize);
 	
 	
 }

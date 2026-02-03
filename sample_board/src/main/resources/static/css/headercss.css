@@ -1,0 +1,31 @@
+@charset "UTF-8";
+#header_wrap {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 24px;
+    background-color: #2f3640;
+    border-radius: 8px;
+}
+
+#header_wrap a {
+    color: #f5f6fa;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 6px 10px;
+    border-radius: 4px;
+}
+
+#header_wrap a:hover {
+    background-color: #414b57;
+}
+
+#header_wrap a:first-child {
+    font-weight: bold;
+    margin-right: auto;
+}
+
+#header_wrap span {
+    color: #fbc531;
+    font-size: 14px;
+}

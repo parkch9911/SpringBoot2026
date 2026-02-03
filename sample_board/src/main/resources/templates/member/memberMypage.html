@@ -3,8 +3,143 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/css/headercss.css}">
 </head>
 <body>
+<style>
+/* ===== SECTION ===== */
+section {
+    padding: 40px 0;
+}
 
+/* 카드 영역 */
+#section_wrap {
+    max-width: 700px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 30px 35px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* 제목 */
+.word h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2f3640;
+}
+
+/* ===== TABLE ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+
+/* 좌측 항목명 */
+table td:first-child {
+    width: 30%;
+    background-color: #f1f2f6;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* 값 영역 */
+table td {
+    padding: 12px 10px;
+    border: 1px solid #ddd;
+}
+
+/* ===== BUTTON AREA ===== */
+.btn-area {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+/* 공통 버튼 */
+.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    background-color: #2f3640;
+    color: #ffffff;
+    transition: background-color 0.2s;
+}
+
+.btn:hover {
+    background-color: #414b57;
+}
+
+/* 삭제 버튼 */
+.btn-danger {
+    background-color: #e84118;
+}
+
+.btn-danger:hover {
+    background-color: #c23616;
+}
+
+/* 반응형 */
+@media (max-width: 600px) {
+    #section_wrap {
+        padding: 20px;
+    }
+
+    table td:first-child {
+        width: 35%;
+    }
+}
+</style>
+<header th:replace="~{/header/header.html::header}"></header>
+<section>
+		<div id="section_wrap">
+			<div class="word"><h2>개인 회원 상세정보</h2></div>
+			<div class="content">
+				<table border="1">
+					<tbody>
+						<tr>
+							<td>회원번호</td>
+							<td th:text = "${oneUserInfo.num}"></td>
+						</tr>
+						<tr>
+							<td>아이디</td>
+							<td th:text = "${oneUserInfo.id}"></td>
+						</tr>
+						<tr>
+							<td>비밀번호</td>
+							<td th:text = "${oneUserInfo.pw}"></td>
+						</tr>
+						<tr>
+							<td>이름</td>
+							<td th:text = "${oneUserInfo.name}"></td>
+						</tr>
+						<tr>
+							<td>가입일</td>
+							<td th:text = "${oneUserInfo.reg_date}"></td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<!-- 버튼 : 회원수정 ,회원삭제 ,목록보기 ,회원가입 생성 -->
+				<div class="btn-area">
+					<th:block th:if="${oneUserInfo.id != 'admin9867'}">
+						<a th:i th:href="@{/member/modify(id=${oneUserInfo.id})}" class="btn">회원수정</a>
+						<a th:href="@{/member/delete(id=${oneUserInfo.id})}"
+						 	class="btn btn-danger" 
+						 	onclick="return confirm('정말 삭제하시겠습니까? 삭제된 데이터는 복구가 불가능합니다.')">
+						 	회원삭제
+						</a>
+					</th:block>
+					<th:block th:if="${session.whoLog.id == 'admin9867'}">
+						<a th:href="@{/member/list}" class="btn">목록보기</a>
+					</th:block>
+				</div>
+			</div>
+		</div>
+	</section>
 </body>
 </html>
