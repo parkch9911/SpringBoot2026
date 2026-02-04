@@ -26,7 +26,7 @@
 			<span style="color:dodgerblue; font-weight:700;" th:if="${session.loginmember.id == 'admin9867'}">관리자님</span>
 			<span style="color:green; font-weight:700;" th:if="${session.loginmember.id != 'admin9867'}" th:text="${session.loginmember.id}+님"></span>			
 			<a th:href="@{/member/logout}">로그아웃</a>
-		
+			<a th:href="@{/board/mypage}">내게시글</a>
 			<th:block  th:if="${session.loginmember.id == 'admin9867'}">
 				<a th:href="@{/member/list}">회원목록</a>
 			</th:block>

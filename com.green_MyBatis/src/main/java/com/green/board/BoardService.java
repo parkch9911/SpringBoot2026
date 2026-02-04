@@ -2,6 +2,7 @@ package com.green.board;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -83,4 +84,22 @@ public class BoardService {
 		return boardMapper.getPageList(startRow, pageSize);
 	}
 	
+	public int getSearchCount(String searchType, String searchKeyword) {
+		System.out.println("3)BoardService getSearchCount()메소드 호출");
+		return boardMapper.getSearchCount(searchType, searchKeyword);
+	}
+	
+	public List<BoardDTO> getSearchPageList(String searchType, String searchKeyword, int startRow, int pageSize){
+		System.out.println("3)BoardService getSearchPageList()메소드 호출");
+		return boardMapper.getSearchPageList(searchType, searchKeyword, startRow, pageSize);
+	}
+	
+	public int getMyBoardCount(String loginId) {
+		System.out.println("3)BoardService getMyBoardCount()메소드 호출");
+		return boardMapper.getMyBoardCount(loginId);
+	}
+	public List<BoardDTO> getMyBoardList(String loginId,int startRow,int pageSize){
+		System.out.println("3)BoardService getMyBoardList()메소드 호출");
+		return boardMapper.getMyBoardList(loginId, startRow, pageSize);
+	}
 }

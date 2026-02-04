@@ -142,7 +142,16 @@ public class BoardController {
 		System.out.println("1)BoardController boardList()메소드 호출");
 		
 		//3.전체 게시글 개수 totalCnt 메소드 가져오기
-		int totalCnt = boardservice.getAllcount();
+		int totalCnt;
+		
+		//totalCnt를 조건에 만족하는 값으로 저장되도록 지정하는 부분
+		if(searchType != null && !searchKeyword.trim().isEmpty()) {
+			//검색한 결과에 해당하는 개수 반환
+			totalCnt = boardservice.getSearchCount(searchType, searchKeyword);
+		}else {
+			//검색 안했을때 게시글전체 개수 반환
+			totalCnt = boardservice.getAllcount();
+		}
 		
 		//4.PageHandler 클래스 접근하기 위해 인스턴스화 한다.
 		PageHandler ph = new PageHandler(totalCnt, page, pageSize);
@@ -153,7 +162,8 @@ public class BoardController {
 		if(searchType != null && !searchKeyword.trim().isEmpty()) {
 			//boardDAO에 검색메소드 getSearchBoard()호출한다.
 			//service에서 searchBoard
-			listboard = boardservice.searchBoard(searchType, searchKeyword);
+			//검색 성공하였을 경우 리스트를 반환하는 메소드
+			listboard = boardservice.getSearchPageList(searchType, searchKeyword, ph.getStartRow(), pageSize);
 		}else {
 			//검색하지 않고 List나오기
 			// boardservice.allBoard() => 사용못하는 이유는
@@ -165,9 +175,43 @@ public class BoardController {
 		//PageHandler 클래스 모두 model 객체에 담아서 html로 보내야함
 		//그래야 UI화면에 페이징 그릴 수 있다.
 		model.addAttribute("ph",ph); // PageHandler 클래스를 인스턴스한 참조변수이다.
+		//검색 타입과 키워드를 넘겨주지않으면 에러발생. 필히 model에 담아 넘겨줄 것
+		model.addAttribute("searchType",searchType);
+		model.addAttribute("searchKeyword",searchKeyword);
 		String nextPage = "board/boardList";
 		return nextPage;
 	}
-	//이 리스트에서 건드려야하겟지?
+	
+	//로그인된 나의 게시글 목록을 검색하는 핸들러
+	@GetMapping("/board/mypage")
+	public String myBoardList(Model model,
+							  HttpSession session,
+							  @RequestParam(value="page",defaultValue="1")int page) {
+		//세션 키 이름 loginmember 가져오기
+		//세션에서 키 값 가져오는 메소드 getAttribute("loginmember")
+		//현재 loginId => MemberDTO의 모든 멤버변수 모두 저장됨을 주의하자
+		MemberDTO loginId = (MemberDTO) session.getAttribute("loginmember");
+		
+		//로그인 실패 혹은 비로그인이면 member/login 이동
+		if(loginId == null) {
+			System.out.println("로그인 정보가 없어 로그인 페이지로 이동합니다.");
+			return "redirect:/member/login";
+		}
+		
+		int pageSize = 5;
+		//내 로그인된 나의 게시글의 개수 조회
+		int totalCnt = boardservice.getMyBoardCount(loginId.getId());
+		
+		//PageHandler 인스턴스
+		PageHandler ph = new PageHandler(totalCnt, page, pageSize);
+		
+		//로그인된 내 게시글의 목록을 가져오기
+		List<BoardDTO> mylist = boardservice.getMyBoardList(loginId.getId(), ph.getStartRow(), pageSize);
+		
+		model.addAttribute("list",mylist);
+		model.addAttribute("ph",ph);
+		
+		return "board/mypage";
+	}
 	
 }

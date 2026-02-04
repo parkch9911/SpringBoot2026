@@ -6,14 +6,14 @@
 		<item key="isRegEx" value="false"/>
 		<item key="selection" value="memberSignup"/>
 		<list key="findhistory">
+			<item value="id"/>
+			<item value="signupresult"/>
 			<item value="memberSignup"/>
 			<item value="member/signup"/>
 			<item value="BoradDTO"/>
 			<item value="insertBoard"/>
 			<item value="boardController"/>
 			<item value="dataSource"/>
-			<item value="num4"/>
-			<item value="board/list"/>
 		</list>
 		<list key="replacehistory">
 		</list>

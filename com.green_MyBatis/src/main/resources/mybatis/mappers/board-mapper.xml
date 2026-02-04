@@ -89,7 +89,51 @@
 		SELECT * FROM otboard ORDER BY num DESC LIMIT #{startRow},#{pageSize}
 	</select>
 	
+	<!-- public int getSearchCount(@Param("searchType")String searchType,
+							  @Param("searchKeyword")String searchKeyword); -->
+	<select id="getSearchCount" resultType="int">
+		SELECT COUNT(*) FROM otboard
+		<where>
+			<choose>
+				<when test="searchType == 'subject'">
+					subject LIKE CONCAT("%",#{searchKeyword},"%")
+				</when>
+				<otherwise>
+					content LIKE CONCAT("%",#{searchKeyword},"%")
+				</otherwise>
+			</choose>
+		</where>
+	</select>
 	
+	<!-- public List<BoardDTO> getSearchPageList(@Param("searchType")String searchType,
+										    @Param("searchKeyword")String searchKeyword,
+										    @Param("startRow") int startRow,
+										    @Param("pageSize") int pageSize); -->
+	<select id= "getSearchPageList" resultType="BoardDTO">
+		SELECT * FROM otboard
+		<where>
+			<choose>
+				<when test="searchType == 'subject'">
+					subject LIKE CONCAT("%",#{searchKeyword},"%")
+				</when>
+				<otherwise>
+					content LIKE CONCAT("%",#{searchKeyword},"%")
+				</otherwise>
+			</choose>
+		</where>
+		ORDER BY num DESC LIMIT #{startRow}, #{pageSize}
+	</select>				    
 
-
+	<!-- public List<BoardDTO> getMyBoardList -->
+	<select id="getMyBoardList" resultType="BoardDTO">
+		SELECT b.num, b.subject, b.reg_date, b.readcount, m.id as writer FROM otboard b 
+		INNER JOIN user_member m ON b.id = m.id
+		WHERE b.id=#{loginId}
+		ORDER BY b.num DESC LIMIT #{startRow},#{pageSize} 
+	</select>
+	
+	<!-- public int getMyBoardCount(String loginId) -->
+	<select id="getMyBoardCount" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM otboard WHERE id=#{loginId}
+	</select>
 </mapper>

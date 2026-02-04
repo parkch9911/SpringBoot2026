@@ -42,5 +42,23 @@ public interface BoardMapper {
 	public List<BoardDTO> getPageList(@Param("startRow") int startRow,
 									  @Param("pageSize") int pageSize);
 	
+	//검색 페이징 필요한 메소드 생성하기 =============================
+	// searchType, searchKeyword 에 해당하는 검색된 개수를 반환하는 메소드
+	public int getSearchCount(@Param("searchType")String searchType,
+							  @Param("searchKeyword")String searchKeyword);
 	
+	// searchType, searchKeyword, startRow, pageSize => 
+	// limit startRow 부터, pageSize개 만큼 한 화면에 보여질 행의 개수
+	public List<BoardDTO> getSearchPageList(@Param("searchType")String searchType,
+										    @Param("searchKeyword")String searchKeyword,
+										    @Param("startRow") int startRow,
+										    @Param("pageSize") int pageSize);
+	
+	// 로그인이 된 상태에서 나만의 게시글을 mypage.html에 출력
+	public List<BoardDTO> getMyBoardList(@Param("loginId")String loginId,
+									 @Param("startRow") int startRow,
+								     @Param("pageSize") int pageSize);
+	
+	//로그인된 나만의 게시물의 개수
+	public int getMyBoardCount(String loginId);
 }
