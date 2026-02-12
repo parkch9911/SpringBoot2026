@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- CarProductMapper 의 패키지 경로 지정한다. -->
+<mapper namespace="com.green.carproduct.mapper.CarProductMapper">
+	<select id="getAllCarProduct" resultType="CarDTO">
+		SELECT * FROM carProduct
+	</select>
+</mapper>
